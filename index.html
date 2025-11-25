@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#000000">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GymLog – Treino & Alimentação</title>
@@ -605,6 +605,18 @@
   <script src="js/treino.js"></script>
   <script src="js/nutri.js"></script>
   <script src="js/charts.js"></script>
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(err => {
+          console.error('SW registration failed:', err);
+        });
+      });
+    }
+  </script>
 
 
 </body>
