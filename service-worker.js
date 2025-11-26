@@ -1,12 +1,8 @@
-const CACHE_NAME = 'gymlog-pro-v1';
+const CACHE_NAME = 'gymlog-pro-inline-v1';
 const URLS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
-  './js/core.js',
-  './js/treino.js',
-  './js/nutri.js',
-  './js/charts.js',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];
