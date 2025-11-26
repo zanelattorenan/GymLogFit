@@ -1812,7 +1812,7 @@ function initNutritionDiary() {
           </div>
           <div class="flex justify-end gap-2">
             <button class="text-xs border border-slate-300 dark:border-slate-600 rounded px-2 py-1 hover:bg-slate-100 dark:hover:bg-slate-700"
-                    onclick="clearConfigExerciseForm()">
+                    onclick="()">
               Limpar
             </button>
             <button class="text-xs bg-secondary text-white rounded px-3 py-1"
@@ -1857,6 +1857,8 @@ function initNutritionDiary() {
       // Preenche o select de templates depois que o HTML foi injetado
       initExerciseTemplates();
     }
+
+     let editExerciseIndex = null;
 
     function clearConfigExerciseForm() {
       document.getElementById("cfg-ex-name").value = "";
