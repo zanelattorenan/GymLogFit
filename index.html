@@ -2265,31 +2265,34 @@ function initNutritionDiary() {
       `;
     }
 
-    // ---------- INICIALIZAÇÃO GERAL ----------
+     // ---------- INICIALIZAÇÃO GERAL ----------
+  window.addEventListener("load", () => {
+    initTheme();
+    document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
 
-    window.addEventListener("load", () => {
-      initTheme();
-      document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
-
-      const savedUser = localStorage.getItem(CURRENT_USER_KEY);
-      if (savedUser) {
-        currentUser = savedUser;
-        enterApp();
-      }
-    });
-  </script>
-
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js').catch(err => {
-          console.error('SW registration failed:', err);
-        });
-      });
+    const savedUser = localStorage.getItem(CURRENT_USER_KEY);
+    if (savedUser) {
+      currentUser = savedUser;
+      enterApp();
     }
-  </script>
+  });
 
+  // Alias para manter compatibilidade com chamadas antigas
+  function renderConfigButtons() {
+    // reaproveita a lógica que já desenha os botões de treino e de configuração
+    renderWorkoutButtons();
+  }
+</script>
 
+<!-- Service worker separado, esse fica assim mesmo -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').catch(err => {
+        console.error('SW registration failed:', err);
+      });
+    });
+  }
+</script>
 </body>
 </html>
