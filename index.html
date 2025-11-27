@@ -2123,30 +2123,52 @@ function initNutritionDiary() {
       listBox.innerHTML = html;
     }
 
-    // ---------- ALIMENTAÇÃO: TABS ----------
-
+        // ---------- ALIMENTAÇÃO: TABS ----------
     function switchNutriTab(tab) {
-      const ids = ["nutri-profile", "nutri-diary", "nutri-summary"];
-      ids.forEach(id => document.getElementById(id).classList.add("hidden"));
+      const panelIds = ["nutri-profile", "nutri-diary", "nutri-summary"];
 
+      // Esconde todos os painéis se existirem
+      panelIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden");
+      });
+
+      // Decide qual painel mostrar
+      let activePanelId;
       if (tab === "profile") {
-        document.getElementById("nutri-profile").classList.remove("hidden");
+        activePanelId = "nutri-profile";
       } else if (tab === "diary") {
-        document.getElementById("nutri-diary").classList.remove("hidden");
+        activePanelId = "nutri-diary";
       } else {
-        document.getElementById("nutri-summary").classList.remove("hidden");
-        renderSummaryChart();
+        activePanelId = "nutri-summary";
       }
 
-      document.getElementById("tab-nutri-profile").className =
-        "px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700";
-      document.getElementById("tab-nutri-diary").className =
-        "px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700";
-      document.getElementById("tab-nutri-summary").className =
-        "px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700";
+      const activePanel = document.getElementById(activePanelId);
+      if (activePanel) activePanel.classList.remove("hidden");
 
-      document.getElementById("tab-nutri-" + tab).className =
-        "px-3 py-1 rounded-full bg-primary text-white";
+      // Se abriu o resumo, tenta atualizar o gráfico (sem quebrar se der erro)
+      if (activePanelId === "nutri-summary") {
+        try {
+          renderSummaryChart();
+        } catch (e) {
+          console.error("Erro ao renderizar resumo:", e);
+        }
+      }
+
+      // Reset visual dos botões de tab, se existirem
+      const btnIds = ["tab-nutri-profile", "tab-nutri-diary", "tab-nutri-summary"];
+      btnIds.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+          btn.className = "px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700";
+        }
+      });
+
+      // Marca o botão ativo
+      const activeBtn = document.getElementById("tab-nutri-" + tab);
+      if (activeBtn) {
+        activeBtn.className = "px-3 py-1 rounded-full bg-primary text-white";
+      }
     }
 
     // ---------- RESUMO GERAL (TREINO + ALIMENTAÇÃO) ----------
