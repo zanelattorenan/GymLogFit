@@ -1849,26 +1849,29 @@ function initNutritionDiary() {
       } else {
         html += `<div class="space-y-2 text-xs">`;
         w.exercises.forEach((ex, idx) => {
-          html += `
-            <div class="border border-slate-200 dark:border-slate-700 rounded p-2 flex justify-between items-center gap-2">
-              <div>
-                <p class="font-semibold">${ex.name}</p>
-                <p>${ex.reps || ""}</p>
-                ${ex.gif ? `<p class="text-[11px] text-slate-500 dark:text-slate-300 truncate max-w-xs">Link: ${ex.gif}</p>` : ""}
-              </div>
-              <div class="flex flex-col items-end gap-1">
-                <button class="text-[11px]" onclick="toggleExerciseFavorite('${configWorkout}','${ex.name.replace(/'/g,"\\'")}')">
-                  ${ex.favorite ? "★ Favorito" : "☆ Favorito"}
-                </button>
-                <div class="flex gap-1">
-                  <button class="text-[11px] text-blue-500"
-                          onclick="loadExerciseIntoForm(${idx})">Editar</button>
-                  <button class="text-[11px] text-red-500"
-                          onclick="deleteExercise(${idx})">Remover</button>
-                </div>
-              </div>
-            </div>
-          `;
+         html += `
+  <div class="border border-slate-200 dark:border-slate-700 rounded p-2 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+    <div class="min-w-0">
+      <p class="font-semibold">${ex.name}</p>
+      <p>${ex.reps || ""}</p>
+      ${ex.gif ? `<p class="text-[11px] text-slate-500 dark:text-slate-300 break-all">Link: ${ex.gif}</p>` : ""}
+    </div>
+
+    <div class="flex w-full sm:w-auto justify-between sm:justify-end items-center sm:items-end gap-2">
+      <button class="text-[11px]"
+              onclick="toggleExerciseFavorite('${configWorkout}','${ex.name.replace(/'/g,"\\'")}')">
+        ${ex.favorite ? "★ Favorito" : "☆ Favorito"}
+      </button>
+      <div class="flex gap-2 flex-wrap justify-end">
+        <button class="text-[11px] text-blue-500"
+                onclick="loadExerciseIntoForm(${idx})">Editar</button>
+        <button class="text-[11px] text-red-500"
+                onclick="deleteExercise(${idx})">Remover</button>
+      </div>
+    </div>
+  </div>
+`;
+
         });
         html += `</div>`;
       }
